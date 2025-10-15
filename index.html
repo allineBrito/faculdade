@@ -11,16 +11,16 @@ html { font-size: var(--base-font); }
 
 / CORREÇÃO AQUI: O estilo do cabeçalho que cria o efeito /
 .main-title {
-  font-size: 28px;
-  font-weight: bold;
-  background: linear-gradient(90deg, #c59f9f, #f3b735, #17c0e6, #0edba5);
-  color: #4b2e2e; / marrom escuro /
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid #a0522d; / cursor marrom /
-  width: 0;
-  animation: typing 4s steps(50, end) forwards,
-             blink 0.8s step-end infinite;
+    font-size: 28px; /* Tamanho do texto */
+    font-weight: bold;
+    text-align: center; /* Centraliza o conteúdo (o span de texto) */
+    padding: 10px 0; /* Espaçamento interno para a "linha" colorida */
+    margin: 1rem auto; /* Centraliza o próprio H1 na página, se ele não for 100% largura */
+    background: linear-gradient(90deg, #c59f9f, #f3b735, #17c0e6, #0edba5); /* Seu gradiente como fundo do H1 */
+    color: #4b2e2e; /* Cor do texto (será invisível/transparente no span) */
+    position: relative; /* Necessário para posicionar o span, se quiser */
+    overflow: hidden; /* Importante para a animação do texto que entra */
+    /* Removido: width: 0; animation: typing ... blink ... */
 }
 @keyframes typing { from { width: 0; } to { width: 100%; } }
 @keyframes blink { 50% { border-color: transparent; } }
@@ -93,9 +93,20 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
 </style>
 </head>
 <body>
-<h1 class="main-title">Histórias em Vozes: Um Olhar Decolonial</h1>
+<h1 class="main-title">
+    <span class="typing-text">Histórias em Vozes: Um Olhar Decolonial</span>
+</h1>
 <p class="subtitle">Agora vamos comparar as narrativas históricas. Podemos dizer que a história dos livros sempre tem razão em relação aos eventos históricos?</p>
 
+<p class="subtitle">Esta é a pergunta central que nos guiará a partir de agora. Em vez de aceitar uma única versão do passado, iniciaremos uma profunda <strong>comparação de narrativas históricas</strong>. Analisaremos a diferença entre a história <em>oficial</em> (como a do Cronista português, geralmente presente nos registros tradicionais) e as <strong>perspectivas silenciadas</strong> (como as do Indígena e do Afrodescendente/ex-escravizado).</p>
+
+<p class="subtitle">Nossa missão é questionar: <strong>quem narra e quem é narrado?</strong></p>
+
+<p class="subtitle">Para isso, adotaremos uma lente crítica, valorizando os princípios da <strong>Decolonialidade</strong> e da <strong>História Vista Por Baixo</strong>. O passado não é um bloco monolítico, mas um mosaico de experiências onde a voz dos subalternos (os povos originários, os negros, os pobres) é fundamental para desafiar as versões hegemônicas.</p>
+
+<p class="subtitle">Além disso, como estamos imersos na era digital, <strong>deixe sua própria perspectiva</strong> sobre o assunto. Também vamos <strong>problematizar as imagens e representações geradas por Inteligência Artificial (IA)</strong>, questionando se elas reproduzem ou rompem com os estereótipos históricos e visões eurocêntricas.</p>
+
+<p class="subtitle"><strong>É hora de desvendar os múltiplos significados de um evento histórico, assumindo que a verdade histórica é sempre disputada e construída.</strong></p>
 <div class="card" aria-label="Seleção e narrativa">
   <fieldset>
     <legend>Selecione evento e narrador</legend>
@@ -124,8 +135,8 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
   </fieldset>
 
   <div id="narrativeArea">
-    <h2>Narrativa</h2>
-    <div id="narrativeText" tabindex="0">Selecione um evento e um narrador, depois clique em "Mostrar narrativa".</div>
+    <h2>Narrativa - O grande evento</h2>
+    <div id="narrativeText" tabindex="0">Selecione um evento, um narrador e uma voz, depois clique em "Mostrar narrativa".</div>
     <div id="eventImageContainer" aria-live="polite"></div>
 
     <div id="audioControls" class="controls-row" aria-label="Controles de áudio">
@@ -138,7 +149,7 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
 
 <div class="card">
   <h2>Conte-nos seu ponto de vista da história</h2>
-  <p>Selecione um Evento. <strong>Ao parar a gravação, o áudio será salvo automaticamente</strong> para o narrador <strong>"Estudante"</strong> neste evento.</p>
+  <p>Chegou sua vez: Selecione um Evento. <strong>Ao parar a gravação, o áudio será salvo automaticamente</strong> para o narrador <strong>"Estudante"</strong> no evento em questão.</p>
   <div id="recordingStatus" class="recording-status"></div>
   <button id="recStart">🔴 Iniciar Gravação</button>
   <button id="recStop" disabled>⏹️ Parar e Salvar</button>
