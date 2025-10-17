@@ -7,8 +7,25 @@
 
 <!-- ✅ VLibras - CSS -->
 <link rel="stylesheet" href="https://vlibras.gov.br/app/public/css/vlibras.css" />
-
 <style>
+#stopAllBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+  background: #c62828;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+#stopAllBtn:hover {
+  background: #b71c1c;
+}
 /* --- Estilos ajustados --- */
 :root{ --base-font:100%; }
 html { font-size: var(--base-font); }
@@ -85,6 +102,12 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
 .high-contrast .footer {
     color: #aaa;
 }
+.high-contrast .footer {
+  color: #aaa;
+}
+.high-contrast .subtitle {
+  color: #fff !important;
+}
 
 #pdfComparisonBtn {
     display: none;
@@ -92,9 +115,33 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
     padding: 8px 16px;
     font-size: 0.95rem;
 }
+/* Botão global de parar tudo */
+#stopAllBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+  background: #c62828;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+#stopAllBtn:hover {
+  background: #b71c1c;
+}
+.high-contrast .subtitle {
+  color: #fff !important;
+}
 </style>
 </head>
 <body>
+<button id="stopAllBtn" title="Parar todas as mídias e leituras">⏹️</button>
+
 <h1 class="main-title">
   <span class="typing-text">Histórias em Vozes: Um Olhar Decolonial</span>
 </h1>
@@ -278,6 +325,7 @@ const voiceMapping = {
 };
 
 // ===================== elementos DOM ===================== /
+
 const eventoSelect=document.getElementById('eventoSelect');
 const narradorSelect=document.getElementById('narradorSelect');
 const voiceSelect=document.getElementById('voiceSelect'); 
@@ -301,22 +349,43 @@ const recDeleteBtn = document.getElementById('recDelete');
 const recordingStatus = document.getElementById('recordingStatus');
 
 // Botão de audiodescrição — agora lê todo o texto introdutório
-document.getElementById("btnAudioDesc").addEventListener("click", () => {
-  const mainTitle = document.querySelector(".main-title .typing-text")?.textContent || "";
-  const subtitles = Array.from(document.querySelectorAll(".subtitle"))
-    .map(p => p.textContent)
-    .join(" ");
-  const fullIntroText = [mainTitle, subtitles].filter(Boolean).join(". ");
-  if (!fullIntroText.trim()) {
-    console.warn("Nenhum texto introdutório encontrado para ler.");
-    return;
-  }
-  const utterance = new SpeechSynthesisUtterance(fullIntroText);
-  utterance.lang = "pt-BR";
-  utterance.rate = 1;
-  speechSynthesis.speak(utterance);
-});
+let introUtterance = null;
+const btnAudioDesc = document.getElementById("btnAudioDesc");
 
+btnAudioDesc.addEventListener("click", function () {
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    this.innerHTML = "🔊 Audiodescrição";
+    this.title = "Ouvir ou parar audiodescrição do texto";
+  } else {
+    const mainTitle = document.querySelector(".main-title .typing-text")?.textContent || "";
+    const subtitles = Array.from(document.querySelectorAll(".subtitle"))
+      .map(p => p.textContent.trim())
+      .filter(t => t)
+      .join(" ");
+    const fullIntroText = [mainTitle, subtitles].filter(Boolean).join(". ");
+
+    if (!fullIntroText) {
+      alert("Nenhum texto para ler.");
+      return;
+    }
+
+    introUtterance = new SpeechSynthesisUtterance(fullIntroText);
+    introUtterance.lang = "pt-BR";
+    introUtterance.rate = 1;
+
+    introUtterance.onstart = () => {
+      this.innerHTML = "⏹️ Parar Leitura";
+      this.title = "Parar a leitura em andamento";
+    };
+    introUtterance.onend = introUtterance.onerror = () => {
+      this.innerHTML = "🔊 Audiodescrição";
+      this.title = "Ouvir ou parar audiodescrição do texto";
+    };
+
+    speechSynthesis.speak(introUtterance);
+  }
+});
 function createPDFButton() {
   const btn = document.createElement('button');
   btn.id = 'pdfComparisonBtn';
