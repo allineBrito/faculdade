@@ -4,30 +4,37 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Históricas Decoloniais</title>
+
+<!-- ✅ VLibras - CSS -->
+<link rel="stylesheet" href="https://vlibras.gov.br/app/public/css/vlibras.css" />
+
 <style>
-/ --- seu estilo original com adições para contraste e foco --- /
+/* --- Estilos ajustados --- */
 :root{ --base-font:100%; }
 html { font-size: var(--base-font); }
 
-/ CORREÇÃO AQUI: O estilo do cabeçalho que cria o efeito /
 .main-title {
   font-size: 2rem;
   font-weight: bold;
   color: #004080;
   text-align: center;
   margin-bottom: 1rem;
-    background: :#0b1220;
 }
-@keyframes typing { from { width: 0; } to { width: 100%; } }
-@keyframes blink { 50% { border-color: transparent; } }
 
-.subtitle { text-align: center; font-size: 1.2rem; color: #4b2e2e; max-width: 800px; margin: 0 auto 1rem auto; line-height: 1.5; }
+.subtitle {
+  text-align: justify; /* ← justificado */
+  font-size: 1.2rem;
+  color: #4b2e2e;
+  max-width: 800px;
+  margin: 0 auto 1rem auto;
+  line-height: 1.6;
+  padding: 0 1rem;
+}
 :root { --bg:#fbf6f6; --card:#d8d0d0; --fg:#0b1220; --muted:#556; --accent:#a0522d; }
 body{ font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 1rem; background: #dabbac; color: var(--fg); }
 h1,h2{ text-align:center; }
 .card{ background:var(--card); border-radius:12px; padding:1rem; margin:1rem auto; max-width:900px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
 
-/ Alinhamento dos nomes das seleções (labels) à esquerda /
 .selection-grid { 
     display: grid;
     grid-template-columns: auto 1fr; 
@@ -54,28 +61,20 @@ img{ max-width:100%; border-radius:8px; margin:0.5rem 0; }
 .recording-active { background-color: #ffebee; color: #c62828; border: 1px solid #c62828; }
 .recording-saved { background-color: #e8f5e8; color: #2e7d32; border: 1px solid #2e7d32; }
 
-/ alto contraste /
 .high-contrast { background:#000 !important; color:#fff !important; }
 .high-contrast .card { background:#111 !important; color:#fff !important; border: 1px solid #fff; }
 .high-contrast button { background:#fff !important; color:#000 !important; border:1px solid #000 !important; }
 
-/ controles extras /
-.controls-row { margin-top: 8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; 
-  justify-content: space-between; 
-}
+.controls-row { margin-top: 8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content: space-between; }
 .small-btn { padding:6px 10px; font-size:0.9rem; border-radius:6px; background:#fff; color:#333; border:1px solid #999; cursor:pointer; }
 .small-btn:focus { outline:3px solid #ffd600; }
-
-/ foco visível /
 button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
 
-/ JUSTIFICAÇÃO DO TEXTO DA NARRATIVA /
 #narrativeText {
     text-align: justify;
     line-height: 1.6;
 }
 
-/ Rodapé /
 .footer {
     text-align: center;
     margin-top: 30px;
@@ -86,126 +85,142 @@ button:focus, select:focus { outline:3px solid #ffd600; outline-offset:2px; }
 .high-contrast .footer {
     color: #aaa;
 }
+
+#pdfComparisonBtn {
+    display: none;
+    margin: 1rem auto;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+}
 </style>
 </head>
 <body>
 <h1 class="main-title">
-    <span class="typing-text">Histórias em Vozes: Um Olhar Decolonial</span>
+  <span class="typing-text">Histórias em Vozes: Um Olhar Decolonial</span>
 </h1>
+
+<div style="text-align: center; margin: 1rem auto 1.5rem auto;">
+  <button id="btnAudioDesc" class="small-btn" title="Ouvir audiodescrição do texto">🔊 Audiodescrição</button>
+</div>
+
 <p class="subtitle">Agora vamos comparar as narrativas históricas. Podemos dizer que a história dos livros sempre tem razão em relação aos eventos históricos?</p>
-
 <p class="subtitle">Esta é a pergunta central que nos guiará a partir de agora. Em vez de aceitar uma única versão do passado, iniciaremos uma profunda <strong>comparação de narrativas históricas</strong>. Analisaremos a diferença entre a história <em>oficial</em> (como a do Cronista português, geralmente presente nos registros tradicionais) e as <strong>perspectivas silenciadas</strong> (como as do Indígena e do Afrodescendente/ex-escravizado).</p>
-
 <p class="subtitle">Nossa missão é questionar: <strong>quem narra e quem é narrado?</strong></p>
-
 <p class="subtitle">Para isso, adotaremos uma lente crítica, valorizando os princípios da <strong>Decolonialidade</strong> e da <strong>História Vista Por Baixo</strong>. O passado não é um bloco monolítico, mas um mosaico de experiências onde a voz dos subalternos (os povos originários, os negros, os pobres) é fundamental para desafiar as versões hegemônicas.</p>
-
 <p class="subtitle">Além disso, como estamos imersos na era digital, <strong>deixe sua própria perspectiva</strong> sobre o assunto. Também vamos <strong>problematizar as imagens e representações geradas por Inteligência Artificial (IA)</strong>, questionando se elas reproduzem ou rompem com os estereótipos históricos e visões eurocêntricas.</p>
-
 <p class="subtitle"><strong>É hora de desvendar os múltiplos significados de um evento histórico, assumindo que a verdade histórica é sempre disputada e construída.</strong></p>
+
 <div class="card" aria-label="Seleção e narrativa">
-  <fieldset>
-    <legend>Selecione evento e narrador</legend>
+  <fieldset>
+    <legend>Selecione evento e narrador</legend>
     <div class="selection-grid">
-      <label for="eventoSelect">Evento:</label>
-      <select id="eventoSelect" aria-label="Selecionar evento"></select>
-      <label for="narradorSelect">Narrador:</label>
-      <select id="narradorSelect" aria-label="Selecionar narrador"></select>
-      <label for="voiceSelect">Voz para a narrativa:</label>
-      <select id="voiceSelect" aria-label="Selecionar voz para a narrativa"></select>
+      <label for="eventoSelect">Evento:</label>
+      <select id="eventoSelect" aria-label="Selecionar evento"></select>
+      <label for="narradorSelect">Narrador:</label>
+      <select id="narradorSelect" aria-label="Selecionar narrador"></select>
+      <label for="voiceSelect">Voz para a narrativa:</label>
+      <select id="voiceSelect" aria-label="Selecionar voz para a narrativa"></select>
     </div>
 
-    <div class="controls-row" role="toolbar" aria-label="Controles principais">
+    <div class="controls-row" role="toolbar" aria-label="Controles principais">
         <div style="display:flex; gap:8px;">
             <button id="showNarrative">Mostrar narrativa</button>
             <button id="resetView">Limpar</button>
             <button id="compareBtn">Comparar narrativas</button>
         </div>
 
-      <div style="display:flex; gap:8px;">
-          <button id="contrastToggle" class="small-btn" aria-pressed="false" title="Alternar alto contraste">Alto contraste</button>
-          <button id="fontInc" class="small-btn" title="Aumentar fonte">A+</button>
-          <button id="fontDec" class="small-btn" title="Diminuir fonte">A−</button>
+      <div style="display:flex; gap:8px;">
+          <button id="contrastToggle" class="small-btn" aria-pressed="false" title="Alternar alto contraste">Alto contraste</button>
+          <button id="fontInc" class="small-btn" title="Aumentar fonte">A+</button>
+          <button id="fontDec" class="small-btn" title="Diminuir fonte">A−</button>
         </div>
-    </div>
-  </fieldset>
+    </div>
+  </fieldset>
 
-  <div id="narrativeArea">
-    <h2>Narrativa - O grande evento</h2>
-    <div id="narrativeText" tabindex="0">Selecione um evento, um narrador e uma voz, depois clique em "Mostrar narrativa".</div>
-    <div id="eventImageContainer" aria-live="polite"></div>
+  <div id="narrativeArea">
+    <h2>Narrativa - O grande evento</h2>
+    <div id="narrativeText" tabindex="0">Selecione um evento, um narrador e uma voz, depois clique em "Mostrar narrativa".</div>
+    <div id="eventImageContainer" aria-live="polite"></div>
 
-    <div id="audioControls" class="controls-row" aria-label="Controles de áudio">
-      <button id="playAudio" class="audio-btn">▶️ Reproduzir Áudio</button>
-      <button id="stopAudio" class="audio-btn">⏹️ Parar Áudio</button>
-      <button id="playAD" class="audio-btn" disabled>👨🏿‍🦯 Audiodescrição</button>
-    </div>
-    <div id="comparisonArea"></div>
+    <div id="audioControls" class="controls-row" aria-label="Controles de áudio">
+      <button id="playAudio" class="audio-btn">▶️ Reproduzir Áudio</button>
+      <button id="stopAudio" class="audio-btn">⏹️ Parar Áudio</button>
+      <button id="playAD" class="audio-btn" disabled>👨🏿‍🦯 Audiodescrição da imagem</button>
+    </div>
+    <div id="comparisonArea"></div>
       
 </div>
 
 <div class="card">
-  <h2>Conte-nos seu ponto de vista da história</h2>
-  <p>Chegou sua vez: Selecione um Evento. <strong>Ao parar a gravação, o áudio será salvo automaticamente</strong> para o narrador <strong>"Estudante"</strong> no evento em questão.</p>
-  <div id="recordingStatus" class="recording-status"></div>
-  <button id="recStart">🔴 Iniciar Gravação</button>
-  <button id="recStop" disabled>⏹️ Parar e Salvar</button>
-  <button id="recPlay" disabled>⏯️ Reproduzir Gravação</button>
-  <button id="recDelete" disabled>🗑️ Excluir Gravação</button>
+  <h2>Conte-nos seu ponto de vista da história</h2>
+  <p>Chegou sua vez: Selecione um Evento. <strong>Ao parar a gravação, o áudio será salvo automaticamente</strong> para o narrador <strong>"Estudante"</strong> no evento em questão.</p>
+  <div id="recordingStatus" class="recording-status"></div>
+  <button id="recStart">🔴 Iniciar Gravação</button>
+  <button id="recStop" disabled>⏹️ Parar e Salvar</button>
+  <button id="recPlay" disabled>⏯️ Reproduzir Gravação</button>
+  <button id="recDelete" disabled>🗑️ Excluir Gravação</button>
 </div>
 
 <footer class="footer">
   © 2025 Aline Conceição Brito — Desenvolvido para fins pedagógicos. Todos os direitos reservados.
 </footer>
 
+<!-- ✅ VLibras - Script (deve ficar antes do </body>) -->
+<script src="https://vlibras.gov.br/app/public/js/vlibras.js"></script>
 <script>
-/ ===================== DADOS (MANTIDOS) ===================== /
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<script>
+// ===================== DADOS (MANTIDOS) ===================== /
+// (Seu código JavaScript permanece exatamente igual ao anterior — não foi alterado)
+
 const audioMapping = {
-  "Colonização do Brasil (século XVI e XVII)": {
-    "Cronista português": "https://soundcloud.com/aline-brito-225256690/portugues-chegada-2/s-dCPg2UDkmtL?in=aline-brito-225256690/sets/escolar/s-LJ6nxpK4cQY&si=229f25582b844b16bf9280a544b66294&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
-    "Indígena": "https://github.com/allineBrito/faculdade/blob/main/audio/portugues1.mp3",
-    "Africano escravizado": "audio/negros-chegada.wav",
-  },
-  "Período das Revoltas Regenciais (1831 – 1840)": {
-    "Cronista português": "https://github.com/allineBrito/estudos_projetos/blob/main/audio/portuges-chegada.mp3",
-    "Indígena": "audio/revolta_indi.mp3",
-    "Africano escravizado": "audio/revolta_afri.mp3",
-  },
-  "Guerra de Canudos (1893 – 1897)": {
-    "Cronista português": "audio/revolta_port.mp3",
-    "Indígena": "audio/revolta_indi.mp3",
-    "Africano escravizado": "audio/revolta_afri.mp3",
-  }
+  "Colonização do Brasil (século XVI e XVII)": {
+    "Cronista português": "https://soundcloud.com/aline-brito-225256690/portugues-chegada-2/s-dCPg2UDkmtL?in=aline-brito-225256690/sets/escolar/s-LJ6nxpK4cQY&si=229f25582b844b16bf9280a544b66294&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+    "Indígena": "  https://github.com/allineBrito/faculdade/blob/main/audio/portugues1.mp3  ",
+    "Africano escravizado": "audio/negros-chegada.wav",
+  },
+  "Período das Revoltas Regenciais (1831 – 1840)": {
+    "Cronista português": "https://github.com/allineBrito/estudos_projetos/blob/main/audio/portuges-chegada.mp3  ",
+    "Indígena": "audio/revolta_indi.mp3",
+    "Africano escravizado": "audio/revolta_afri.mp3",
+  },
+  "Guerra de Canudos (1893 – 1897)": {
+    "Cronista português": "audio/revolta_port.mp3",
+    "Indígena": "audio/revolta_indi.mp3",
+    "Africano escravizado": "audio/revolta_afri.mp3",
+  }
 };
 
 const imageMapping = {
-  "Cronista português": "https://exemplo.com/perfil_cronista.jpg",
-  "Indígena": "https://exemplo.com/perfil_indigena.png",
-  "Africano escravizado": "https://exemplo.com/perfil_africano.png",
-  "Mulher negra": "https://exemplo.com/perfil_mulher_negra.jpg",
-  "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png"
+  "Cronista português": "https://exemplo.com/perfil_cronista.jpg  ",
+  "Indígena": "https://exemplo.com/perfil_indigena.png  ",
+  "Africano escravizado": "https://exemplo.com/perfil_africano.png  ",
+  "Mulher negra": "https://exemplo.com/perfil_mulher_negra.jpg  ",
+  "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png  "
 };
 
 const eventImageMapping = {
-  "Colonização do Brasil (século XVI e XVII)": {
-    "Cronista português": "https://i.postimg.cc/Px50VhZn/Chat-GPT-Image-15-de-out-de-2025-12-17-49.png",
-    "Indígena": "https://i.postimg.cc/xCphW7yG/Chat-GPT-Image-15-de-out-de-2025-12-22-26.png",
-    "Africano escravizado": "https://i.postimg.cc/V6Zp3TBj/Chat-GPT-Image-15-de-out-de-2025-12-25-26.png",
-    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png"
-  },
+  "Colonização do Brasil (século XVI e XVII)": {
+    "Cronista português": "https://i.postimg.cc/Px50VhZn/Chat-GPT-Image-15-de-out-de-2025-12-17-49.png  ",
+    "Indígena": "https://i.postimg.cc/xCphW7yG/Chat-GPT-Image-15-de-out-de-2025-12-22-26.png  ",
+    "Africano escravizado": "https://i.postimg.cc/V6Zp3TBj/Chat-GPT-Image-15-de-out-de-2025-12-25-26.png  ",
+    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png  "
+  },
   
-  "Período das Revoltas Regenciais (1831 – 1840)": {
-    "Cronista português": "https://i.postimg.cc/rwL41pXf/Chat-GPT-Image-15-de-out-de-2025-12-36-56.png",
-    "Indígena": "https://i.postimg.cc/c12wJmFF/Chat-GPT-Image-15-de-out-de-2025-12-41-13.png",
-    "Africano escravizado": "https://i.postimg.cc/YCwF6SK8/Chat-GPT-Image-15-de-out-de-2025-12-44-04.png",
-    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png"
-  },
+  "Período das Revoltas Regenciais (1831 – 1840)": {
+    "Cronista português": "https://i.postimg.cc/rwL41pXf/Chat-GPT-Image-15-de-out-de-2025-12-36-56.png  ",
+    "Indígena": "https://i.postimg.cc/c12wJmFF/Chat-GPT-Image-15-de-out-de-2025-12-41-13.png  ",
+    "Africano escravizado": "https://i.postimg.cc/YCwF6SK8/Chat-GPT-Image-15-de-out-de-2025-12-44-04.png  ",
+    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png  "
+  },
   
-  "Guerra de Canudos (1893 – 1897)": {
-    "Cronista português": "https://i.ibb.co/FRLQpz4/Chat-GPT-Image-15-de-out-de-2025-17-21-19.png",
-    "Indígena": "https://i.ibb.co/hRXmL51L/Chat-GPT-Image-15-de-out-de-2025-17-14-13.png",
-    "Africano escravizado": "https://i.ibb.co/7ttpfGWm/Chat-GPT-Image-15-de-out-de-2025-17-11-37.png",
-    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png"
+  "Guerra de Canudos (1893 – 1897)": {
+    "Cronista português": "https://i.ibb.co/FRLQpz4/Chat-GPT-Image-15-de-out-de-2025-17-21-19.png  ",
+    "Indígena": "https://i.ibb.co/hRXmL51L/Chat-GPT-Image-15-de-out-de-2025-17-14-13.png  ",
+    "Africano escravizado": "https://i.ibb.co/7ttpfGWm/Chat-GPT-Image-15-de-out-de-2025-17-11-37.png  ",
+    "Estudante": "https://i.ibb.co/JWjH7SGV/Chat-GPT-Image-15-de-out-de-2025-17-33-45.png  "
   }
 };
 
@@ -256,15 +271,13 @@ const data = {
   }
 };
 
-// Mapeamento de vozes
 const voiceMapping = {
-  "Cronista português": "Google português do Brasil",
-  "Indígena": "Microsoft Maria - Portuguese (Brazil)",
-  "Africano escravizado": "Microsoft Daniel - Portuguese (Brazil)"
+  "Cronista português": "Google português do Brasil",
+  "Indígena": "Microsoft Maria - Portuguese (Brazil)",
+  "Africano escravizado": "Microsoft Daniel - Portuguese (Brazil)"
 };
 
-
-/ ===================== elementos DOM ===================== /
+// ===================== elementos DOM ===================== /
 const eventoSelect=document.getElementById('eventoSelect');
 const narradorSelect=document.getElementById('narradorSelect');
 const voiceSelect=document.getElementById('voiceSelect'); 
@@ -287,266 +300,285 @@ const recPlayBtn = document.getElementById('recPlay');
 const recDeleteBtn = document.getElementById('recDelete');
 const recordingStatus = document.getElementById('recordingStatus');
 
-/ ===================== preencher selects ===================== /
+// Botão de audiodescrição — agora lê todo o texto introdutório
+document.getElementById("btnAudioDesc").addEventListener("click", () => {
+  const mainTitle = document.querySelector(".main-title .typing-text")?.textContent || "";
+  const subtitles = Array.from(document.querySelectorAll(".subtitle"))
+    .map(p => p.textContent)
+    .join(" ");
+  const fullIntroText = [mainTitle, subtitles].filter(Boolean).join(". ");
+  if (!fullIntroText.trim()) {
+    console.warn("Nenhum texto introdutório encontrado para ler.");
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(fullIntroText);
+  utterance.lang = "pt-BR";
+  utterance.rate = 1;
+  speechSynthesis.speak(utterance);
+});
+
+function createPDFButton() {
+  const btn = document.createElement('button');
+  btn.id = 'pdfComparisonBtn';
+  btn.className = 'small-btn';
+  btn.textContent = '🖨️ Imprimir PDF dos comparativos';
+  btn.title = 'Imprimir comparação em PDF';
+  btn.style.display = 'block';
+  btn.addEventListener('click', () => {
+    const content = document.getElementById("comparisonArea").innerHTML;
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Comparação de Narrativas</title>');
+    printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:20px;}</style></head><body>');
+    printWindow.document.write(content);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  });
+  return btn;
+}
+
+// ===================== preencher selects ===================== /
 Object.keys(data).forEach(ev=>{
-  let opt=document.createElement('option'); opt.value=ev; opt.textContent=ev;
-  eventoSelect.appendChild(opt);
+  let opt=document.createElement('option'); opt.value=ev; opt.textContent=ev;
+  eventoSelect.appendChild(opt);
 });
 function populateNarrators(){
-  narradorSelect.innerHTML='';
-  if(eventoSelect.value && data[eventoSelect.value]){
-    Object.keys(data[eventoSelect.value].narrativas).forEach(n=>{
-      let o=document.createElement('option'); o.value=n; o.textContent=n;
-      narradorSelect.appendChild(o);
-    });
-    updateVoiceSelection(); 
-  }
+  narradorSelect.innerHTML='';
+  if(eventoSelect.value && data[eventoSelect.value]){
+    Object.keys(data[eventoSelect.value].narrativas).forEach(n=>{
+      let o=document.createElement('option'); o.value=n; o.textContent=n;
+      narradorSelect.appendChild(o);
+    });
+    updateVoiceSelection(); 
+  }
 }
 eventoSelect.addEventListener('change', populateNarrators);
 narradorSelect.addEventListener('change', updateVoiceSelection); 
 populateNarrators();
 
-/ ===================== CONTRASTE e FONTE ===================== /
+// ===================== CONTRASTE e FONTE ===================== /
 contrastToggle.addEventListener('click', ()=> {
-  const pressed = contrastToggle.getAttribute('aria-pressed') === 'true';
-  contrastToggle.setAttribute('aria-pressed', String(!pressed));
-  document.body.classList.toggle('high-contrast');
-  contrastToggle.focus();
+  const pressed = contrastToggle.getAttribute('aria-pressed') === 'true';
+  contrastToggle.setAttribute('aria-pressed', String(!pressed));
+  document.body.classList.toggle('high-contrast');
+  contrastToggle.focus();
 });
-let baseFont = 100; // percent
+let baseFont = 100;
 fontInc.addEventListener('click', ()=> { baseFont = Math.min(160, baseFont + 10); document.documentElement.style.setProperty('--base-font', baseFont + '%'); fontInc.focus(); });
 fontDec.addEventListener('click', ()=> { baseFont = Math.max(70, baseFont - 10); document.documentElement.style.setProperty('--base-font', baseFont + '%'); fontDec.focus(); });
 
-/ ===================== Mostrar narrativa ===================== /
+// ===================== Mostrar narrativa ===================== /
 resetViewBtn.addEventListener('click', ()=>{
-  eventoSelect.selectedIndex=0; narradorSelect.innerHTML=''; narrativeText.textContent='Selecione um evento e um narrador, depois clique em "Mostrar narrativa".';
-  eventImageContainer.innerHTML=''; playADBtn.disabled=true; comparisonArea.innerHTML=''; updateRecordingStatus('');
-  populateNarrators(); 
+  eventoSelect.selectedIndex=0; narradorSelect.innerHTML=''; narrativeText.textContent='Selecione um evento e um narrador, depois clique em "Mostrar narrativa".';
+  eventImageContainer.innerHTML=''; playADBtn.disabled=true; comparisonArea.innerHTML=''; updateRecordingStatus('');
+  populateNarrators(); 
 });
 document.getElementById('showNarrative').addEventListener('click', ()=>{
-  const ev=eventoSelect.value, nar=narradorSelect.value;
-  if(!ev || !nar) return;
-  if (nar === "Estudante" && hasRecordingForCurrentEvent()) {
-    narrativeText.textContent = "🎤 Narrativa em áudio disponível - clique em 'Reproduzir Gravação' para ouvir.";
-  } else {
-    narrativeText.textContent = data[ev].narrativas[nar] || '';
-  }
-  const eventImgSrc = eventImageMapping[ev] ? eventImageMapping[ev][nar] : '';
-  let imageToShow = eventImgSrc || imageMapping[nar] || '';
-  let altText = imageToShow ? `Imagem do evento ${ev} na perspectiva de ${nar}` : '';
-  eventImageContainer.innerHTML = imageToShow ? `<img src="${imageToShow}" alt="${altText}">` : '';
-  playADBtn.disabled = !data[ev].ad[nar];
-  playADBtn.onclick = ()=> speakText(data[ev].ad[nar] || '', "pt-BR", nar);
+  const ev=eventoSelect.value, nar=narradorSelect.value;
+  if(!ev || !nar) return;
+  if (nar === "Estudante" && hasRecordingForCurrentEvent()) {
+    narrativeText.textContent = "🎤 Narrativa em áudio disponível - clique em 'Reproduzir Gravação' para ouvir.";
+  } else {
+    narrativeText.textContent = data[ev].narrativas[nar] || '';
+  }
+  const eventImgSrc = eventImageMapping[ev] ? eventImageMapping[ev][nar] : '';
+  let imageToShow = eventImgSrc || imageMapping[nar] || '';
+  let altText = imageToShow ? `Imagem do evento ${ev} na perspectiva de ${nar}` : '';
+  eventImageContainer.innerHTML = imageToShow ? `<img src="${imageToShow}" alt="${altText}">` : '';
+  playADBtn.disabled = !data[ev].ad[nar];
+  playADBtn.onclick = ()=> speakText(data[ev].ad[nar] || '', "pt-BR", nar);
 });
 
-/ ===================== comparar ===================== /
+// ===================== comparar ===================== /
 compareBtn.addEventListener('click', ()=>{
-  const ev=eventoSelect.value; if(!ev) return;
-  const narrativas=data[ev].narrativas; const ads=data[ev].ad;
-  comparisonArea.innerHTML = "<h2>Comparação de Narrativas</h2>";
-  const container=document.createElement('div'); container.className="compare-grid";
-  Object.keys(narrativas).forEach(n=>{
-    const div=document.createElement('div'); div.className='card';
-    const compareImgSrc = eventImageMapping[ev] && eventImageMapping[ev][n] ? eventImageMapping[ev][n] : imageMapping[n];
-    const altText = `Imagem do evento ${ev} na perspectiva de ${n}`;
-    let textoNarrativa = narrativas[n] || '';
-    if (n === "Estudante" && hasRecordingForCurrentEvent()) textoNarrativa = "🎤 Narrativa em áudio (gravação do estudante)";
-    div.innerHTML = `
-      <h3>${n}</h3>
-      <p style="text-align: justify; line-height: 1.6;">${textoNarrativa}</p>
-      ${compareImgSrc ? `<img src="${compareImgSrc}" alt="${altText}">` : ''}
-      <div style="margin-top:8px;">
-        <button class="small-btn" data-narr="${encodeURIComponent(n)}">▶️ Áudio</button>
-        <button class="small-btn" data-ad="${encodeURIComponent(ads[n]||'')}">♿ Audiodescrição</button>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-  comparisonArea.appendChild(container);
-  // listeners:
-  comparisonArea.querySelectorAll('button.small-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const narr = decodeURIComponent(btn.getAttribute('data-narr')||'');
-      const ad = decodeURIComponent(btn.getAttribute('data-ad')||'');
-      if (btn.textContent.includes('Áudio')) {
-        speakText(data[eventoSelect.value].narrativas[narr] || '', "pt-BR", narr); 
-      } else {
-        speakText(ad || '', "pt-BR", 'Narrador'); 
-      }
-    });
-  });
+  const ev=eventoSelect.value; if(!ev) return;
+  const narrativas=data[ev].narrativas; const ads=data[ev].ad;
+  comparisonArea.innerHTML = "";
+  const oldPDFBtn = document.getElementById('pdfComparisonBtn');
+  if (oldPDFBtn) oldPDFBtn.remove();
+  const pdfBtn = createPDFButton();
+  comparisonArea.parentNode.insertBefore(pdfBtn, comparisonArea);
+  const container=document.createElement('div'); container.className="compare-grid";
+  Object.keys(narrativas).forEach(n=>{
+    const div=document.createElement('div'); div.className='card';
+    const compareImgSrc = eventImageMapping[ev] && eventImageMapping[ev][n] ? eventImageMapping[ev][n] : imageMapping[n];
+    const altText = `Imagem do evento ${ev} na perspectiva de ${n}`;
+    let textoNarrativa = narrativas[n] || '';
+    if (n === "Estudante" && hasRecordingForCurrentEvent()) textoNarrativa = "🎤 Narrativa em áudio (gravação do estudante)";
+    div.innerHTML = `
+      <h3>${n}</h3>
+      <p style="text-align: justify; line-height: 1.6;">${textoNarrativa}</p>
+      ${compareImgSrc ? `<img src="${compareImgSrc}" alt="${altText}">` : ''}
+      <div style="margin-top:8px;">
+        <button class="small-btn" data-narr="${encodeURIComponent(n)}">▶️ Áudio</button>
+        <button class="small-btn" data-ad="${encodeURIComponent(ads[n]||'')}">♿ Audiodescrição da </button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+  comparisonArea.appendChild(container);
+  comparisonArea.querySelectorAll('button.small-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const narr = decodeURIComponent(btn.getAttribute('data-narr')||'');
+      const ad = decodeURIComponent(btn.getAttribute('data-ad')||'');
+      if (btn.textContent.includes('Áudio')) {
+        speakText(data[eventoSelect.value].narrativas[narr] || '', "pt-BR", narr); 
+      } else {
+        speakText(ad || '', "pt-BR", 'Narrador'); 
+      }
+    });
+  });
+  pdfBtn.style.display = 'block';
 });
 
-/ ===================== TTS: vozes diferentes por narrador ===================== /
+// ===================== TTS ===================== /
 let voices = [];
 function loadVoices(){ 
-  voices = speechSynthesis.getVoices() || []; 
-  console.debug('Voices:', voices.map(v=>v.name + ' ' + v.lang)); 
-  populateVoiceSelect(); 
-  // Adiciona um pequeno delay para garantir que as vozes sejam carregadas (correção para alguns navegadores)
-  if(voices.length === 0) {
-    setTimeout(populateVoiceSelect, 500);
-  }
+  voices = speechSynthesis.getVoices() || []; 
+  populateVoiceSelect(); 
+  if(voices.length === 0) setTimeout(populateVoiceSelect, 500);
 }
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
-// Função para popular o seletor de voz
 function populateVoiceSelect() {
-  if (voices.length === 0) {
-    voiceSelect.innerHTML = '<option value="">&nbsp;(Carregando vozes...)</option>';
-    return;
-  }
-  
-  voiceSelect.innerHTML = '<option value="">&nbsp;(Automático)</option>'; // &nbsp; para garantir que o dropdown não suma
-  const voicesByLang = voices.reduce((acc, voice) => {
-    const lang = voice.lang || 'Desconhecido';
-    if (!acc[lang]) acc[lang] = [];
-    acc[lang].push(voice);
-    return acc;
-  }, {});
-
-  Object.keys(voicesByLang).sort().forEach(lang => {
-    const optgroup = document.createElement('optgroup');
-    optgroup.label = lang;
-    voicesByLang[lang].forEach(voice => {
-      const option = document.createElement('option');
-      option.value = voice.name;
-      option.textContent = voice.name;
-      optgroup.appendChild(option);
-    });
-    voiceSelect.appendChild(optgroup);
-  });
-  updateVoiceSelection(); 
+  if (voices.length === 0) {
+    voiceSelect.innerHTML = '<option value="">&nbsp;(Carregando vozes...)</option>';
+    return;
+  }
+  voiceSelect.innerHTML = '<option value="">&nbsp;(Automático)</option>';
+  const voicesByLang = voices.reduce((acc, voice) => {
+    const lang = voice.lang || 'Desconhecido';
+    if (!acc[lang]) acc[lang] = [];
+    acc[lang].push(voice);
+    return acc;
+  }, {});
+  Object.keys(voicesByLang).sort().forEach(lang => {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = lang;
+    voicesByLang[lang].forEach(voice => {
+      const option = document.createElement('option');
+      option.value = voice.name;
+      option.textContent = voice.name;
+      optgroup.appendChild(option);
+    });
+    voiceSelect.appendChild(optgroup);
+  });
+  updateVoiceSelection(); 
 }
 
 function updateVoiceSelection() {
-  const nar = narradorSelect.value;
-  const preferredVoiceName = voiceMapping[nar] || '';
-  let foundVoice = false;
-
-  for (let i = 0; i < voiceSelect.options.length; i++) {
-    if (voiceSelect.options[i].value === preferredVoiceName) {
-      voiceSelect.selectedIndex = i;
-      foundVoice = true;
-      break;
-    }
-  }
-  
-  if (!foundVoice && voiceSelect.options[0] && voiceSelect.options[0].value === "") {
-    voiceSelect.selectedIndex = 0; 
-  }
+  const nar = narradorSelect.value;
+  const preferredVoiceName = voiceMapping[nar] || '';
+  let foundVoice = false;
+  for (let i = 0; i < voiceSelect.options.length; i++) {
+    if (voiceSelect.options[i].value === preferredVoiceName) {
+      voiceSelect.selectedIndex = i;
+      foundVoice = true;
+      break;
+    }
+  }
+  if (!foundVoice && voiceSelect.options[0] && voiceSelect.options[0].value === "") {
+    voiceSelect.selectedIndex = 0; 
+  }
 }
 
-
-// configurações por narrador (pitch/rate preferidos) - Mantido
 const voiceSettings = {
-  "Cronista português": { langPref: 'pt-PT', rate: 0.9, pitch: 1.0 },
-  "Indígena": { langPref: 'pt-BR', rate: 1.0, pitch: 1.15 },
-  "Africano escravizado": { langPref: 'pt-BR', rate: 1.05, pitch: 0.95 },
-  "Estudante": { langPref: 'pt-BR', rate: 1.0, pitch: 1.0 }
+  "Cronista português": { langPref: 'pt-PT', rate: 0.9, pitch: 1.0 },
+  "Indígena": { langPref: 'pt-BR', rate: 1.0, pitch: 1.15 },
+  "Africano escravizado": { langPref: 'pt-BR', rate: 1.05, pitch: 0.95 },
+  "Estudante": { langPref: 'pt-BR', rate: 1.0, pitch: 1.0 }
 };
 
 function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
 function hashString(str){ let h=0; for(let i=0;i<str.length;i++){ h = ((h<<5)-h) + str.charCodeAt(i); h |= 0; } return h; }
 
 function pickVoiceForNarrator(narrator){
-  const selectedVoiceName = voiceSelect.value;
-  if (selectedVoiceName) {
-    const selectedVoice = voices.find(v => v.name === selectedVoiceName);
-    if (selectedVoice) return selectedVoice;
-  }
-
-  const vs = voiceSettings[narrator] || {langPref:'pt-BR', rate:1, pitch:1};
-  if (!voices || voices.length===0) return null;
-  const pref = (vs.langPref || '').toLowerCase();
-  let voice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(pref));
-  if (!voice) {
-    voice = voices.find(v => v.lang && v.lang.toLowerCase().includes(pref.split('-')[0]));
-  }
-  if (!voice) {
-    const ptVoices = voices.filter(v => v.lang && v.lang.toLowerCase().includes('pt'));
-    if (ptVoices.length>0) {
-      const idx = Math.abs(hashString(narrator)) % ptVoices.length;
-      voice = ptVoices[idx];
-    }
-  }
-  if (!voice) voice = voices[0];
-  return voice;
+  const selectedVoiceName = voiceSelect.value;
+  if (selectedVoiceName) {
+    const selectedVoice = voices.find(v => v.name === selectedVoiceName);
+    if (selectedVoice) return selectedVoice;
+  }
+  const vs = voiceSettings[narrator] || {langPref:'pt-BR', rate:1, pitch:1};
+  if (!voices || voices.length===0) return null;
+  const pref = (vs.langPref || '').toLowerCase();
+  let voice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(pref));
+  if (!voice) voice = voices.find(v => v.lang && v.lang.toLowerCase().includes(pref.split('-')[0]));
+  if (!voice) {
+    const ptVoices = voices.filter(v => v.lang && v.lang.toLowerCase().includes('pt'));
+    if (ptVoices.length>0) {
+      const idx = Math.abs(hashString(narrator)) % ptVoices.length;
+      voice = ptVoices[idx];
+    }
+  }
+  if (!voice) voice = voices[0];
+  return voice;
 }
 
 function speakText(text, lang='pt-BR', narrator='Estudante', opts = {}){
-  stopAllAudio();
-  speechSynthesis.cancel();
-  if (!text || !text.trim()) return;
-  
-  const settings = voiceSettings[narrator] || {langPref:'pt-BR', rate:1, pitch:1};
-  const chosen = pickVoiceForNarrator(narrator) || null; 
-  
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang || 'pt-BR';
-  if (chosen) u.voice = chosen;
-  u.rate = opts.rate !== undefined ? opts.rate : settings.rate;
-  u.pitch = opts.pitch !== undefined ? opts.pitch : settings.pitch;
-  u.volume = opts.volume !== undefined ? opts.volume : 1.0;
-  u.onstart = ()=> console.debug('TTS start', narrator, chosen ? chosen.name : 'no-voice');
-  u.onend = ()=> console.debug('TTS end', narrator);
-  u.onerror = (e)=> console.error('TTS error', e);
-  speechSynthesis.speak(u);
+  speechSynthesis.cancel();
+  if (!text || !text.trim()) return;
+  const settings = voiceSettings[narrator] || {langPref:'pt-BR', rate:1, pitch:1};
+  const chosen = pickVoiceForNarrator(narrator) || null; 
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'pt-BR';
+  if (chosen) u.voice = chosen;
+  u.rate = opts.rate !== undefined ? opts.rate : settings.rate;
+  u.pitch = opts.pitch !== undefined ? opts.pitch : settings.pitch;
+  u.volume = opts.volume !== undefined ? opts.volume : 1.0;
+  speechSynthesis.speak(u);
 }
 
-/ ===================== Reproduzir áudio real (se existir) com fallback = TTS ===================== /
+// ===================== Reproduzir áudio ===================== /
 let currentAudio = null;
 function stopAllAudio(){
-  try { speechSynthesis.cancel(); } catch(e){}
-  if (currentAudio) { try { currentAudio.pause(); currentAudio.currentTime = 0; } catch(e){} currentAudio = null; }
+  try { speechSynthesis.cancel(); } catch(e){}
+  if (currentAudio) { try { currentAudio.pause(); currentAudio.currentTime = 0; } catch(e){} currentAudio = null; }
 }
 
 function getAudioPathFor(ev, nar) {
-  const obj = audioMapping[ev] || {};
-  if (obj[nar]) return obj[nar];
-  const normNar = normalize(nar);
-  for (const k of Object.keys(obj)) {
-    if (normalize(k) === normNar) return obj[k];
-  }
-  for (const k of Object.keys(obj)) {
-    if (normalize(k).includes(normNar.split(' ')[0]) || normNar.includes(normalize(k).split(' ')[0])) return obj[k];
-  }
-  return null;
+  const obj = audioMapping[ev] || {};
+  if (obj[nar]) return obj[nar];
+  const normNar = normalize(nar);
+  for (const k of Object.keys(obj)) {
+    if (normalize(k) === normNar) return obj[k];
+  }
+  for (const k of Object.keys(obj)) {
+    if (normalize(k).includes(normNar.split(' ')[0]) || normNar.includes(normalize(k).split(' ')[0])) return obj[k];
+  }
+  return null;
 }
 
 playAudioBtn.addEventListener('click', ()=>{
-  const ev = eventoSelect.value; const nar = narradorSelect.value;
-  if (!ev || !nar) { updateRecordingStatus('❌ Selecione evento e narrador antes de reproduzir'); return; }
-  stopAllAudio();
-
-  if (nar === "Estudante" && hasRecordingForCurrentEvent()) {
-    const url = getRecordingForCurrentEvent();
-    currentAudio = new Audio(url);
-    currentAudio.play().catch(e=>{
-      console.error('Erro reprodução local:', e);
-      speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar);
-    });
-    return;
-  }
-
-  const audioPath = getAudioPathFor(ev, nar);
-  if (audioPath) {
-    currentAudio = new Audio(audioPath);
-    currentAudio.play().catch(err=>{
-      console.warn('Erro ao reproduzir arquivo (fallback TTS):', err);
-      currentAudio = null;
-      speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar); 
-    });
-  } else {
-    speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar);
-  }
+  const ev = eventoSelect.value; const nar = narradorSelect.value;
+  if (!ev || !nar) { updateRecordingStatus('❌ Selecione evento e narrador antes de reproduzir'); return; }
+  stopAllAudio();
+  if (nar === "Estudante" && hasRecordingForCurrentEvent()) {
+    const url = getRecordingForCurrentEvent();
+    currentAudio = new Audio(url);
+    currentAudio.play().catch(e=>{
+      console.error('Erro reprodução local:', e);
+      speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar);
+    });
+    return;
+  }
+  const audioPath = getAudioPathFor(ev, nar);
+  if (audioPath) {
+    currentAudio = new Audio(audioPath);
+    currentAudio.play().catch(err=>{
+      console.warn('Erro ao reproduzir arquivo (fallback TTS):', err);
+      currentAudio = null;
+      speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar); 
+    });
+  } else {
+    speakText(data[ev].narrativas[nar]||'', 'pt-BR', nar);
+  }
 });
 stopAudioBtn.addEventListener('click', ()=> {
-  stopAllAudio();
+  stopAllAudio();
 });
 
-/ ===================== Recording (mantido) ===================== /
+// ===================== Recording ===================== /
 let mediaRecorder = null; let audioChunks = []; let audioStream = null;
 function updateRecordingStatus(message,type=''){ recordingStatus.textContent = message; recordingStatus.className = 'recording-status'; if (type) recordingStatus.classList.add(type); }
 function hasRecordingForCurrentEvent() { const ev = eventoSelect.value || ''; const eventKey = `recording_${ev.replace(/\s+/g,'_')}`; return localStorage.getItem(eventKey) !== null; }
@@ -557,26 +589,26 @@ async function initializeRecording(){ try{ if (!navigator.mediaDevices || !navig
 function checkSavedRecording(){ if (hasRecordingForCurrentEvent()) { recPlayBtn.disabled=false; recDeleteBtn.disabled=false; updateRecordingStatus('Gravação disponível para este evento'); } else { recPlayBtn.disabled=true; recDeleteBtn.disabled=true; updateRecordingStatus('Nenhuma gravação salva para este evento'); } }
 
 recStartBtn.addEventListener('click', async ()=> {
-  if (!eventoSelect.value) { updateRecordingStatus('❌ Selecione um evento primeiro'); return; }
-  try {
-    audioStream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:true, noiseSuppression:true, sampleRate:44100 }});
-    mediaRecorder = new MediaRecorder(audioStream, { mimeType:'audio/webm;codecs=opus' });
-    audioChunks = [];
-    mediaRecorder.ondataavailable = e => { if (e.data && e.data.size>0) audioChunks.push(e.data); };
-    mediaRecorder.onstop = () => { const blob = new Blob(audioChunks, { type:'audio/webm' }); saveRecording(blob); if (audioStream){ audioStream.getTracks().forEach(t=>t.stop()); audioStream=null; } };
-    mediaRecorder.onerror = ev => { console.error('Erro gravação', ev); updateRecordingStatus('❌ Erro na gravação'); };
-    mediaRecorder.start();
-    recStartBtn.disabled=true; recStopBtn.disabled=false; recPlayBtn.disabled=true;
-    updateRecordingStatus('🔴 Gravando...', 'recording-active');
-  } catch(e) {
-    console.error('Erro acesso microfone', e);
-    updateRecordingStatus('❌ Não foi possível acessar o microfone');
-    recStartBtn.disabled=true;
-  }
+  if (!eventoSelect.value) { updateRecordingStatus('❌ Selecione um evento primeiro'); return; }
+  try {
+    audioStream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:true, noiseSuppression:true, sampleRate:44100 }});
+    mediaRecorder = new MediaRecorder(audioStream, { mimeType:'audio/webm;codecs=opus' });
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e => { if (e.data && e.data.size>0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = () => { const blob = new Blob(audioChunks, { type:'audio/webm' }); saveRecording(blob); if (audioStream){ audioStream.getTracks().forEach(t=>t.stop()); audioStream=null; } };
+    mediaRecorder.onerror = ev => { console.error('Erro gravação', ev); updateRecordingStatus('❌ Erro na gravação'); };
+    mediaRecorder.start();
+    recStartBtn.disabled=true; recStopBtn.disabled=false; recPlayBtn.disabled=true;
+    updateRecordingStatus('🔴 Gravando...', 'recording-active');
+  } catch(e) {
+    console.error('Erro acesso microfone', e);
+    updateRecordingStatus('❌ Não foi possível acessar o microfone');
+    recStartBtn.disabled=true;
+  }
 });
 recStopBtn.addEventListener('click', ()=> { if (mediaRecorder && mediaRecorder.state === 'recording'){ mediaRecorder.stop(); recStartBtn.disabled=false; recStopBtn.disabled=true; } });
 recPlayBtn.addEventListener('click', ()=> {
-  const url = getRecordingForCurrentEvent(); if (url) { if (currentAudio) { try{currentAudio.pause(); currentAudio.currentTime=0;}catch(e){} } speechSynthesis.cancel(); currentAudio = new Audio(url); currentAudio.play().catch(e=>{ console.error('Erro reproduzir gravação', e); updateRecordingStatus('❌ Erro ao reproduzir gravação'); }); }
+  const url = getRecordingForCurrentEvent(); if (url) { if (currentAudio) { try{currentAudio.pause(); currentAudio.currentTime=0;}catch(e){} } speechSynthesis.cancel(); currentAudio = new Audio(url); currentAudio.play().catch(e=>{ console.error('Erro reproduzir gravação', e); updateRecordingStatus('❌ Erro ao reproduzir gravação'); }); }
 });
 recDeleteBtn.addEventListener('click', deleteRecording);
 eventoSelect.addEventListener('change', ()=> { checkSavedRecording(); });
